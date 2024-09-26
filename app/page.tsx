@@ -61,6 +61,19 @@ export default function Home() {
     setFormula(formulaCalculada); // Atualiza o estado com a fórmula
   };
 
+  //calculo de funções
+
+  const [formData, setFormData] = useState({
+    valor_lavagem: '',
+    produto_limpeza: '',
+    contas: '',
+    qtde_funcionarios: '',
+    salario: '',
+    comissao: '',
+    obrigacoes: '',
+    aluguel: '',
+  });
+
   return (
     <div className="min-h-screen p-8 pb-20 font-[family-name:var(--font-geist-sans)]">
       <h1 className="text-xl mb-4">Desafio 1 - Cálculo de Conjuntos</h1>
@@ -94,6 +107,8 @@ export default function Home() {
         Calcular União
       </Button>
 
+      <br></br>
+
       {/* Exibe o resultado abaixo do botão */}
       {resultado !== null && (
         <div className="mt-4">
@@ -107,6 +122,32 @@ export default function Home() {
           </p>
         </div>
       )}
+
+      <br></br>
+
+      <h1 className="text-xl mb-4">Desafio 2 - Funções - Lava Jato</h1>
+
+      {/* Inputs para calcular as funções */}
+      
+      <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
+        <Input type="number" name="custo_lavagem" placeholder="Custo por Lavagem" />
+        <Input type="number" name="custo_limpeza" placeholder="Custo com Produtos de Limpeza" />
+      </div>
+      <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
+        <Input type="number" name="contas" placeholder="Contas de Água e Luz" />
+        <Input type="number" name="aluguel" placeholder="Aluguel" />
+      </div>
+      <div className="grid grid-cols-4 sm:grid-cols-4 gap-4 gap-y-4">
+        <Input type="number" name="quantidade_funcionarios" placeholder="Quantidade de Funcionários" />
+        <Input type="number" name="salario" placeholder="Salário do Funcionário" />
+        <Input type="number" name="comissao" placeholder="Comissão por Lavagem" />
+        <Input type="number" name="imposto" placeholder="Imposto" />
+      </div>
+
+      <Button className="mt-8">
+        Calcular Funções
+      </Button>
+
     </div>
   );
 }
