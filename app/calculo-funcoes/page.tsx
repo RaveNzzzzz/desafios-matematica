@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import Link from 'next/link'
 
 export default function LavaJatoForm() {
   // Estados para os inputs
@@ -172,6 +173,12 @@ export default function LavaJatoForm() {
           <p>Lucro: R$ {resultados.lucro.toFixed(2)}</p>
         </div>
       )}
+
+      <Link href="/" className="gap-y-14 inline-block bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors duration-300">
+        Voltar para a Página Inicial
+      </Link>
     </div>
+
+    
   );
 }

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import Link from 'next/link'
 
 export default function CalculoConjuntos() {
   const [conjuntos, setConjuntos] = useState({
@@ -99,6 +100,8 @@ export default function CalculoConjuntos() {
 
       <br></br>
 
+      
+
       {/* Exibe o resultado abaixo do botão */}
       {resultado !== null && (
         <div className="mt-4">
@@ -112,6 +115,14 @@ export default function CalculoConjuntos() {
           </p>
         </div>
       )}
+
+      <br></br>
+
+      <div className="mt-4">
+        <Link href="/" className="gap-y-14 inline-block bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors duration-900">
+          Voltar para a Página Inicial
+        </Link>
+      </div>
 
     </div>
   );
