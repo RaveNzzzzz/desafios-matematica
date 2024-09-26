@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from 'next/link'
+import { ChangeEvent } from 'react';
 
 export default function LavaJatoForm() {
   // Estados para os inputs
@@ -28,7 +29,7 @@ export default function LavaJatoForm() {
   });
 
   // Função para atualizar os valores dos inputs
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -174,9 +175,11 @@ export default function LavaJatoForm() {
         </div>
       )}
 
+      <div>
       <Link href="/" className="gap-y-14 inline-block bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors duration-300">
-        Voltar para a Página Inicial
-      </Link>
+          Voltar para a Página Inicial
+        </Link>
+      </div>
     </div>
 
     
