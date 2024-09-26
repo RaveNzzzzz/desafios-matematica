@@ -1,13 +1,11 @@
 "use client"; // Indica que o componente é client-side
 
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from 'next/link'
-import { ChangeEvent } from 'react';
 
 export default function LavaJatoForm() {
-  // Estados para os inputs
   const [formData, setFormData] = useState({
     custo_lavagem: '',
     custo_limpeza: '',
@@ -17,10 +15,16 @@ export default function LavaJatoForm() {
     salario: '',
     comissao: '',
     imposto: '',
-    carros_lavados: '', // Quantidade de carros lavados
+    carros_lavados: '',
   });
 
-  const [resultados, setResultados] = useState({
+  const [resultados, setResultados] = useState<{
+    receita: number | null;
+    custo_variavel: number | null;
+    custo_fixo: number | null;
+    custo_total: number | null;
+    lucro: number | null;
+  }>({
     receita: null,
     custo_variavel: null,
     custo_fixo: null,
@@ -28,7 +32,6 @@ export default function LavaJatoForm() {
     lucro: null,
   });
 
-  // Função para atualizar os valores dos inputs
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
@@ -37,7 +40,6 @@ export default function LavaJatoForm() {
     });
   };
 
-  // Função para realizar os cálculos
   const calcularFuncoes = () => {
     const {
       custo_lavagem,
@@ -51,7 +53,6 @@ export default function LavaJatoForm() {
       carros_lavados,
     } = formData;
 
-    // Garantir que os valores sejam convertidos para números
     const custoLavagemNum = parseFloat(custo_lavagem) || 0;
     const custoLimpezaNum = parseFloat(custo_limpeza) || 0;
     const contasNum = parseFloat(contas) || 0;
@@ -59,26 +60,15 @@ export default function LavaJatoForm() {
     const quantidadeFuncionariosNum = parseInt(quantidade_funcionarios) || 0;
     const salarioNum = parseFloat(salario) || 0;
     const comissaoNum = parseFloat(comissao) || 0;
-    const impostoNum = parseFloat(imposto) / 100 || 0; // Dividindo por 100 para transformar em porcentagem
+    const impostoNum = parseFloat(imposto) / 100 || 0;
     const carrosLavadosNum = parseInt(carros_lavados) || 0;
 
-    // Receita = custo_lavagem * carros_lavados
     const receita = custoLavagemNum * carrosLavadosNum;
-
-    // Custo variável = custo_limpeza + comissão + imposto
-    const custoVariavel = custoLimpezaNum + comissaoNum + (impostoNum * custoLimpezaNum); // imposto aplicado à base de custos variáveis
-
-    // Custo fixo = ((salario * quantidade_funcionarios) * imposto) + contas + aluguel
-    const custoFixo =
-      (salarioNum * quantidadeFuncionariosNum * (1 + impostoNum)) + contasNum + aluguelNum;
-
-    // Custo total = custo_var + custo_fixo
+    const custoVariavel = custoLimpezaNum + comissaoNum + impostoNum * custoLimpezaNum;
+    const custoFixo = (salarioNum * quantidadeFuncionariosNum * (1 + impostoNum)) + contasNum + aluguelNum;
     const custoTotal = custoVariavel + custoFixo;
-
-    // Lucro = (receita - custo_var) - custo_fixo
     const lucro = receita - custoVariavel - custoFixo;
 
-    // Atualizar os resultados
     setResultados({
       receita,
       custo_variavel: custoVariavel,
@@ -168,10 +158,10 @@ export default function LavaJatoForm() {
         <div className="mt-8">
           <h2>Resultados:</h2>
           <p>Receita: R$ {resultados.receita.toFixed(2)}</p>
-          <p>Custo Variável: R$ {resultados.custo_variavel.toFixed(2)}</p>
-          <p>Custo Fixo: R$ {resultados.custo_fixo.toFixed(2)}</p>
-          <p>Custo Total: R$ {resultados.custo_total.toFixed(2)}</p>
-          <p>Lucro: R$ {resultados.lucro.toFixed(2)}</p>
+          <p>Custo Variável: R$ {(resultados.custo_variavel ?? 0).toFixed(2)}</p>
+          <p>Custo Fixo: R$ {(resultados.custo_fixo ?? 0).toFixed(2)}</p>
+          <p>Custo Total: R$ {(resultados.custo_total ?? 0).toFixed(2)}</p>
+          <p>Lucro: R$ {(resultados.lucro ?? 0).toFixed(2)}</p>
         </div>
       )}
 
